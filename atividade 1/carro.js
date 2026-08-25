@@ -1,5 +1,5 @@
 {
-const canvas = document.getElementById("canvas1");
+const canvas = document.getElementById("canvas3");
 const gl = canvas.getContext("webgl2");
 
 if (!gl) {
@@ -11,104 +11,104 @@ if (!gl) {
 // 1. VERTICES
 // --------------------------------------------------
 
+
+function rectVertices(sizeX, sizeY, posX, posY) {
+    const halfSizeX = sizeX / 2;
+    const halfSizeY = sizeY / 2;
+
+    const vertices = [
+        posX - halfSizeX, posY - halfSizeY,
+        posX + halfSizeX, posY - halfSizeY,
+        posX + halfSizeX, posY + halfSizeY,
+
+        posX - halfSizeX, posY - halfSizeY,
+        posX + halfSizeX, posY + halfSizeY,
+        posX - halfSizeX, posY + halfSizeY
+    ];
+
+    return new Float32Array(vertices);
+}
+
+function circleVertices(radius, numSides, posX, posY) {
+    const vertices = [];
+    let angle, x, y;
+
+    // Calculate pentagon vertices
+    for (let i = 0; i <= numSides-1; i++) {
+
+        angle = i * 2 * Math.PI / numSides;
+        x = (radius * Math.cos(angle)) + posX;
+        y = (radius * Math.sin(angle)) + posY;
+
+        vertices.push(x, y);
+
+        angle = (i+1) * 2 * Math.PI / numSides;
+        x = (radius * Math.cos(angle)) + posX;
+        y = (radius * Math.sin(angle)) + posY;
+        vertices.push(x, y);
+
+        vertices.push(posX, posY);
+        
+    }
+
+    return new Float32Array(vertices);
+}
+
 const vertices = new Float32Array([
-     0.2203, 0.2866, //ponto J
-     0.2883, 0.6871, //ponto K
-     0.5335, 0.4121, //ponto L
+    ...rectVertices(0.6, 0.3, 0.0, -0.05),
+    ...rectVertices(0.3, 0.17, -0.3, -0.115),
+    ...rectVertices(0.3, 0.17, 0.3, -0.115),
 
-     0.5924, 0.7156, //ponto M
-     0.2883, 0.6871, //ponto K
-     0.5335, 0.4121, //ponto L
+    ...rectVertices(0.2, 0.1, -0.10, 0.02),
+    ...rectVertices(0.2, 0.1, 0.15, 0.02),
 
-     -0.2079, -0.3055, //ponto N
-     -0.4892, -0.5195, //ponto O
-     -0.1855, -0.6792, //ponto P
+    ...circleVertices(0.1, 40, 0.2, -0.2),
+    ...circleVertices(0.05, 40, 0.2, -0.2),
 
-     -0.4718, -0.8289, //ponto Q
-     -0.4892, -0.5195, //ponto O
-     -0.1855, -0.6792, //ponto P
-
-    -0.2, -0.2, //ponto A
-     0.2, -0.2, //ponto B
-     0.0,  0.2, //ponto C
-
-    -0.4,  0.2, //ponto D
-    -0.2, -0.2, //ponto A
-     0.0,  0.2, //ponto C
-
-     0.4,  0.2, //ponto E
-     0.2, -0.2, //ponto B
-     0.0,  0.2, //ponto C
-
-     0.0, -0.5, //ponto F
-    -0.2, -0.2, //ponto A
-     0.2, -0.2, //ponto B
-
-    -0.4, -0.3, //ponto G
-    -0.4,  0.2, //ponto D
-     0.0, -0.5, //ponto F
-
-     0.0,  0.45,//ponto H
-     0.4,  0.2, //ponto E
-    -0.4,  0.2, //ponto D
-
-     0.4, -0.3, //ponto I
-     0.4,  0.2, //ponto E
-     0.0, -0.5, //ponto F
-
+    ...circleVertices(0.1, 40, -0.2, -0.2),
+    ...circleVertices(0.05, 40, -0.2, -0.2)
 ]);
-
 
 // --------------------------------------------------
 // 1. CORES
 // --------------------------------------------------
+function rectColors(r, g, b) {
+    const colors = [];
+
+    for (let i = 0; i < 6; i++) {
+        colors.push(r, g, b);
+    }
+
+    return new Float32Array(colors);
+}
+
+function circleColors(numSides, r, g, b) {
+    const colors = [];
+
+    for (let i = 0; i <= numSides-1; i++) {
+        // Center point of the pentagon
+        colors.push(r, g, b);
+        colors.push(r, g, b);
+        colors.push(r, g, b);
+    }
+
+    return new Float32Array(colors);
+}
 
 const colors = new Float32Array([
-    0.1, 0.4, 0.1,
-    0.1, 0.4, 0.1,
-    0.1, 0.4, 0.1,
+    ...rectColors(1.0, 1.0, 0.0),
+    ...rectColors(1.0, 1.0, 0.0),
+    ...rectColors(1.0, 1.0, 0.0),
 
-    0.4, 0.8, 0.4,
-    0.4, 0.8, 0.4,
-    0.4, 0.8, 0.4,
+    ...rectColors(0.5, 1.0, 1.0),
+    ...rectColors(0.5, 1.0, 1.0),
 
-    0.4, 0.8, 0.4,
-    0.4, 0.8, 0.4,
-    0.4, 0.8, 0.4,
+    ...circleColors(40, 0.1, 0.1, 0.1),
+    ...circleColors(40, 0.5, 0.5, 0.5),
 
-    0.1, 0.4, 0.1,
-    0.1, 0.4, 0.1,
-    0.1, 0.4, 0.1,
-
-    1.0, 0.3, 0.3,
-    1.0, 0.3, 0.3,
-    1.0, 0.3, 0.3,
-
-    0.7, 0.1, 0.1,
-    0.7, 0.1, 0.1,
-    0.7, 0.1, 0.1,
-
-    0.7, 0.1, 0.1,
-    0.7, 0.1, 0.1,
-    0.7, 0.1, 0.1,
-
-    0.7, 0.1, 0.1,
-    0.7, 0.1, 0.1,
-    0.7, 0.1, 0.1,
-
-    0.4, 0.1, 0.1,
-    0.4, 0.1, 0.1,
-    0.4, 0.1, 0.1,
-
-    0.4, 0.1, 0.1,
-    0.4, 0.1, 0.1,
-    0.4, 0.1, 0.1,
-
-    0.4, 0.1, 0.1,
-    0.4, 0.1, 0.1,
-    0.4, 0.1, 0.1,
-])
-
+    ...circleColors(40, 0.1, 0.1, 0.1),
+    ...circleColors(40, 0.5, 0.5, 0.5),
+]);
 
 // --------------------------------------------------
 // 2. BUFFERS
@@ -282,7 +282,7 @@ gl.vertexAttribPointer(
 // 9. LIMPAR TELA
 // --------------------------------------------------
 
-gl.clearColor(0.0, 0.0, 0.0, 1.0);
+gl.clearColor(1.0, 1.0, 1.0, 1.0);
 
 gl.clear(gl.COLOR_BUFFER_BIT);
 
