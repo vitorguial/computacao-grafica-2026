@@ -119,10 +119,6 @@ const vertices = new Float32Array([
 
     //nariz
     ...trapezoidVertices(0.05, 0.1, 0.3, 0.0, 0.8)
-
-
-    
-    
 ]);
 
 // --------------------------------------------------

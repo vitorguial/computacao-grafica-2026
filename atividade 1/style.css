@@ -1,0 +1,107 @@
+:root {
+    --bg-color: #f4f2ec;
+    --card-bg: #ffffff;
+    --text-main: #2b2b2b;
+    --text-muted: #6e6b66;
+    --border-color: #d8d3c9;
+    --sketch-line: #a8a297;
+    --shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--bg-color);
+    /* Padrão de fundo estilo bloco de rascunho / papel milimetrado */
+    background-image: 
+        linear-gradient(to right, rgba(0, 0, 0, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(0, 0, 0, 0.03) 1px, transparent 1px);
+    background-size: 24px 24px;
+    color: var(--text-main);
+    padding: 2.5rem 1.5rem;
+    min-height: 100vh;
+}
+
+.header {
+    max-width: 800px;
+    margin: 0 auto 3rem auto;
+    background: var(--card-bg);
+    border: 2px dashed var(--sketch-line);
+    border-radius: 6px;
+    padding: 1.5rem 2rem;
+    box-shadow: var(--shadow);
+}
+
+.header-content h1 {
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.75rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--text-main);
+}
+
+.header-content p {
+    font-size: 0.95rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1300px;
+    margin: 0 auto;
+}
+
+.canvas-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+}
+
+.canvas-card {
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.25rem;
+    box-shadow: var(--shadow);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.canvas-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.07);
+}
+
+.canvas-title h3 {
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+    border-bottom: 1px dashed var(--sketch-line);
+    padding-bottom: 0.25rem;
+}
+
+.canvas-wrapper {
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    background-color: #fafafa;
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+canvas {
+    display: block;
+    background-color: #ffffff;
+}
