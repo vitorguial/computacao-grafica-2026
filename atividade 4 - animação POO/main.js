@@ -1,4 +1,4 @@
-const canvas = document.getElementById("canvas");
+const canvas = document.getElementById("canvas1");
 const gl = canvas.getContext("webgl2");
 
 if (!gl) {
